@@ -1,0 +1,34 @@
+# Local .terraform directories
+# `terraform init` 명령 실행 시 생성되는 플러그인 및 모듈 캐시 파일입니다.
+**/.terraform/
+
+# .tfstate files
+# 배포된 인프라의 상태 정보와 민감한 데이터(비밀번호, API 키 등)가 포함되므로 절대로 커밋해서는 안 됩니다.
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+# Terraform 실행 실패 시 생성되는 크래시 로그 파일입니다.
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files containing sensitive data
+# 비밀번호, API Token 등 민감한 변수 값이 들어있는 파일들입니다.
+*.tfvars
+*.tfvars.json
+
+# Override files
+# 개발자 개인이 로컬 환경에서 기존 설정을 덮어쓰기 위해 사용하는 파일입니다.
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# CLI configuration files
+# Terraform CLI 설정 파일(로컬 인증 정보 등)입니다.
+.terraformrc
+terraform.rc
+
+# Terragrunt
+# Terragrunt 사용 시 생성되는 임시 캐시 디렉토리입니다.
+.terragrunt-cache/
