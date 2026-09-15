@@ -1,0 +1,23 @@
+# ~/EksTerraformStudy/cluster/manifest/lbc-deploy.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lbc-deploy
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx-container
+        image: 633030247124.dkr.ecr.ap-northeast-2.amazonaws.com/b2-nginx-test-1:alpine
+        ports:
+        - containerPort: 80

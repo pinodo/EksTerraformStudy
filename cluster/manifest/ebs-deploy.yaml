@@ -1,0 +1,35 @@
+# ~/EksTerraformStudy/cluster/manifest/ebs-deploy.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sesac-b2-ebs-deploy
+spec:
+  replicas: 1  # DB 하나만 띄우기
+  selector:
+    matchLabels:
+      app: sesac-b2-ebs-deploy
+  template:
+    metadata:
+      labels:
+        app: sesac-b2-ebs-deploy
+    spec:
+      containers:
+      - name: mysql-container
+        image: mysql:8.0
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "1234"
+          - name: MYSQL_DATABASE
+            value: "testdb"
+        ports:
+          - containerPort: 3306
+            name: mysql
+        # 컨테이너 내부 경로와 EBS 볼륨 연결
+        volumeMounts:
+        - name: mysql-volume
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-volume
+        persistentVolumeClaim:
+          claimName: sesac-b2-ebs-pvc  # 위에서 만든 PVC

@@ -1,0 +1,35 @@
+# ~/EksTerraformStudy/cluster/manifest/lbc-ingress.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: lbc-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP  # target-type: ip이므로 ip 직접 접속이 유리함
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lbc-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing  # 외부 노출용
+    alb.ingress.kubernetes.io/target-type: ip          # Pod IP로 직접 연결 (성능 좋음)
+spec:
+  ingressClassName: alb                                # LBC가 ALB를 만들어야 함을 알려 줌
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lbc-service
+                port:
+                  number: 80

@@ -5,7 +5,7 @@ module "s3_read_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.0"
   
-  role_name = "s3-read-only-role"
+  role_name = "sesac-b2-s3-read-only-role"
   
   oidc_providers = {
     main = {
@@ -25,7 +25,7 @@ module "s3_read_irsa_role" {
 
 resource "kubernetes_service_account_v1" "s3_read_sa" {
   metadata {
-    name        = "s3-read-sa"
+    name        = "sesac-b2-s3-read-sa"
     namespace   = "default"
     annotations = {
       "eks.amazonaws.com/role-arn" = module.s3_read_irsa_role.iam_role_arn
