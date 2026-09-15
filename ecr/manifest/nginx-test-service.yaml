@@ -1,0 +1,14 @@
+# ~/EksTerraformStudy/ecr/manifest/nginx-test-service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-test-service
+spec:
+  selector:
+    app: nginx-test-deploy
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer  # AWS ELB(Classic Load Balancer) 자동 생성

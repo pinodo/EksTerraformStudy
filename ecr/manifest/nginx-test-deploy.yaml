@@ -1,0 +1,23 @@
+# ~/EksTerraformStudy/ecr/manifest/nginx-test-deploy.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-test-deploy
+  labels:
+    app: nginx-test-deploy
+spec:
+  replicas: 2  # t3.medium 노드가 2대이므로 각각 하나씩 띄우도록 설정
+  selector:
+    matchLabels:
+      app: nginx-test-deploy
+  template:
+    metadata:
+      labels:
+        app: nginx-test-deploy
+    spec:
+      containers:
+      - name: nginx-container
+        image: 633030247124.dkr.ecr.ap-northeast-2.amazonaws.com/b2-nginx-test-1  # 직전 단계에서 Push한 ECR 이미지 주소
+        ports:
+        - containerPort: 80
